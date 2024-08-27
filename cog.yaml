@@ -9,3 +9,4 @@ build:
     - "git+https://github.com/coqui-ai/TTS.git"
 
 predict: "predict.py:Predictor"
+image: "r8.im/ermisai/tts"
