@@ -1,0 +1,292 @@
+{
+    "output_path": "/root/TTS-XTTS-decoder/checkpoints_xtts",
+    "logger_uri": null,
+    "run_name": "GPT_XTTS_v2.0_cml",
+    "project_name": "XTTS_trainer",
+    "run_description": "\n            GPT XTTS training\n            ",
+    "print_step": 50,
+    "plot_step": 100,
+    "model_param_stats": false,
+    "wandb_entity": null,
+    "dashboard_logger": "tensorboard",
+    "save_on_interrupt": true,
+    "log_model_step": 1000,
+    "save_step": 10000,
+    "save_n_checkpoints": 4,
+    "save_checkpoints": true,
+    "save_all_best": false,
+    "save_best_after": 0,
+    "target_loss": null,
+    "print_eval": true,
+    "test_delay_epochs": 0,
+    "run_eval": true,
+    "run_eval_steps": 10000,
+    "distributed_backend": "nccl",
+    "distributed_url": "tcp://localhost:54321",
+    "mixed_precision": false,
+    "precision": "fp16",
+    "epochs": 1000,
+    "batch_size": 7,
+    "eval_batch_size": 7,
+    "grad_clip": 0.0,
+    "scheduler_after_epoch": true,
+    "lr": 5e-06,
+    "optimizer": "AdamW",
+    "optimizer_params": {
+        "betas": [
+            0.9,
+            0.96
+        ],
+        "eps": 1e-08,
+        "weight_decay": 0.01
+    },
+    "lr_scheduler": "MultiStepLR",
+    "lr_scheduler_params": {
+        "milestones": [
+            900000,
+            2700000,
+            5400000
+        ],
+        "gamma": 0.5,
+        "last_epoch": -1
+    },
+    "use_grad_scaler": false,
+    "allow_tf32": false,
+    "cudnn_enable": true,
+    "cudnn_deterministic": false,
+    "cudnn_benchmark": false,
+    "training_seed": 1,
+    "model": "xtts",
+    "num_loader_workers": 8,
+    "num_eval_loader_workers": 0,
+    "use_noise_augment": false,
+    "audio": {
+        "sample_rate": 24000,
+        "output_sample_rate": 24000,
+        "dvae_sample_rate": 24000
+    },
+    "use_phonemes": false,
+    "phonemizer": null,
+    "phoneme_language": null,
+    "compute_input_seq_cache": false,
+    "text_cleaner": null,
+    "enable_eos_bos_chars": false,
+    "test_sentences_file": "",
+    "phoneme_cache_path": null,
+    "characters": null,
+    "add_blank": false,
+    "batch_group_size": 48,
+    "loss_masking": null,
+    "min_audio_len": 1,
+    "max_audio_len": Infinity,
+    "min_text_len": 1,
+    "max_text_len": Infinity,
+    "compute_f0": false,
+    "compute_energy": false,
+    "compute_linear_spec": false,
+    "precompute_num_workers": 0,
+    "start_by_longest": false,
+    "shuffle": false,
+    "drop_last": false,
+    "datasets": [
+        {
+            "formatter": "",
+            "dataset_name": "",
+            "path": "",
+            "meta_file_train": "",
+            "ignored_speakers": null,
+            "language": "",
+            "phonemizer": "",
+            "meta_file_val": "",
+            "meta_file_attn_mask": ""
+        }
+    ],
+    "test_sentences": [
+        {
+            "text": "Amor \u00e9 fogo que arde sem se ver \u00e9 ferida que d\u00f3i e n\u00e3o se sente \u00e9 um contentamento descontente \u00e9 dor que desatina sem doer.",
+            "speaker_wav": "/root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/train/audio/9351/9018/9351_9018_000021-0002.wav",
+            "language": "pt"
+        },
+        {
+            "text": "E agora Jos\u00e9? A festa acabou, a luz apagou, o povo sumiu, a noite esfriou, e agora Jos\u00e9?",
+            "speaker_wav": "/root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/train/audio/9351/9018/9351_9018_000021-0002.wav",
+            "language": "pt"
+        },
+        {
+            "text": "Vou-me embora pra Pas\u00e1rgada, L\u00e1 sou amigo do rei, L\u00e1 tenho a mulher que eu quero, Na cama que escolherei!",
+            "speaker_wav": "/root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/train/audio/2961/4744/2961_4744_000020-0001.wav",
+            "language": "pt"
+        },
+        {
+            "text": "Olha que coisa mais linda, mais cheia de gra\u00e7a. \u00c9 ela menina, que vem e que passa. Num doce balan\u00e7o a caminho do mar.",
+            "speaker_wav": "/root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/train/audio/2961/4744/2961_4744_000020-0001.wav",
+            "language": "pt"
+        },
+        {
+            "text": "Ouviram do ipiranga \u00e0s margens pl\u00e1cidas de um povo her\u00f3ico o brado retumbante.",
+            "speaker_wav": "/root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/train/audio/12249/12742/12249_12742_000001.wav",
+            "language": "pt"
+        },
+        {
+            "text": "Minha terra tem palmeiras onde canta o sabi\u00e1, as aves que aqui gorjeiam n\u00e3o gorjeiam como l\u00e1.",
+            "speaker_wav": "/root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/train/audio/12249/12742/12249_12742_000001.wav",
+            "language": "pt"
+        },
+        {
+            "text": "\u00d3 que saudades que tenho da aurora da minha vida, da minha inf\u00e2ncia querida, Que os anos n\u00e3o trazem mais.",
+            "speaker_wav": "/root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/train/audio/5677/4744/5677_4744_000033-0002.wav",
+            "language": "pt"
+        },
+        {
+            "text": "No princ\u00edpio Deus criou o c\u00e9u e a terra, entretanto a terra era sem forma e vazia.",
+            "speaker_wav": "/root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/train/audio/5677/4744/5677_4744_000033-0002.wav",
+            "language": "pt"
+        },
+        {
+            "text": "No meio do caminho tinha uma pedra; Tinha uma pedra no meio do caminho.",
+            "speaker_wav": "/root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/train/audio/4367/3701/4367_3701_000031-0001.wav",
+            "language": "pt"
+        },
+        {
+            "text": "Brasil, mostra tua cara; quero ver quem paga pra gente ficar assim.",
+            "speaker_wav": "/root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/train/audio/4367/3701/4367_3701_000031-0001.wav",
+            "language": "pt"
+        },
+        {
+            "text": "Na natureza nada se perde, nada se cria, tudo se transforma.",
+            "speaker_wav": "/root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/train/audio/10107/6390/10107_6390_000217-0001.wav",
+            "language": "pt"
+        },
+        {
+            "text": "\u00c1gua mole em pedra dura, tanto bate at\u00e9 que fura.",
+            "speaker_wav": "/root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/train/audio/10107/6390/10107_6390_000217-0001.wav",
+            "language": "pt"
+        }
+    ],
+    "eval_split_max_size": 256,
+    "eval_split_size": 0.1,
+    "use_speaker_weighted_sampler": false,
+    "speaker_weighted_sampler_alpha": 1.0,
+    "use_language_weighted_sampler": false,
+    "language_weighted_sampler_alpha": 1.0,
+    "use_length_weighted_sampler": false,
+    "length_weighted_sampler_alpha": 1.0,
+    "model_args": {
+        "gpt_batch_size": 1,
+        "enable_redaction": false,
+        "kv_cache": true,
+        "gpt_checkpoint": "",
+        "clvp_checkpoint": null,
+        "decoder_checkpoint": null,
+        "num_chars": 255,
+        "tokenizer_file": "/root/TTS-XTTS-decoder/checkpoints_xtts/XTTS_v2.0_original_model_files/vocab.json",
+        "gpt_max_audio_tokens": 605,
+        "gpt_max_text_tokens": 402,
+        "gpt_max_prompt_tokens": 70,
+        "gpt_layers": 30,
+        "gpt_n_model_channels": 1024,
+        "gpt_n_heads": 16,
+        "gpt_number_text_tokens": 6681,
+        "gpt_start_text_token": 261,
+        "gpt_stop_text_token": 0,
+        "gpt_num_audio_tokens": 1026,
+        "gpt_start_audio_token": 1024,
+        "gpt_stop_audio_token": 1025,
+        "gpt_code_stride_len": 1024,
+        "gpt_use_masking_gt_prompt_approach": true,
+        "gpt_use_perceiver_resampler": true,
+        "decoder_output_hop_length": 256,
+        "decoder_input_dim": 1024,
+        "decoder_d_vector_dim": 512,
+        "decoder_cond_d_vector_in_each_upsampling_layer": true,
+        "decoder_resblock_kernel_sizes_decoder": [
+            3,
+            7,
+            11
+        ],
+        "decoder_resblock_dilation_sizes_decoder": [
+            [
+                1,
+                3,
+                5
+            ],
+            [
+                1,
+                3,
+                5
+            ],
+            [
+                1,
+                3,
+                5
+            ]
+        ],
+        "decoder_upsample_rates_decoder": [
+            8,
+            8,
+            2,
+            2
+        ],
+        "decoder_upsample_initial_channel_decoder": 512,
+        "decoder_upsample_kernel_sizes_decoder": [
+            16,
+            16,
+            4,
+            4
+        ],
+        "decoder_init_discriminator": false,
+        "decoder_periods_multi_period_discriminator": [
+            2,
+            3,
+            5,
+            7,
+            11
+        ],
+        "decoder_use_spectral_norm_disriminator": false,
+        "duration_const": 102400,
+        "min_conditioning_length": 66150,
+        "max_conditioning_length": 132300,
+        "gpt_loss_text_ce_weight": 0.01,
+        "gpt_loss_mel_ce_weight": 1.0,
+        "debug_loading_failures": false,
+        "max_wav_length": 255995,
+        "max_text_length": 200,
+        "mel_norm_file": "/root/TTS-XTTS-decoder/checkpoints_xtts/XTTS_v2.0_original_model_files/mel_stats.pth",
+        "dvae_checkpoint": "/root/TTS-XTTS-decoder/checkpoints_xtts/XTTS_v2.0_original_model_files/dvae.pth",
+        "xtts_checkpoint": "checkpoints_xtts/GPT_XTTS_v2.0_en_pt-May-14-2024_12+55AM-3fef64e9/checkpoint_446328.pth",
+        "vocoder": ""
+    },
+    "model_dir": null,
+    "languages": [
+        "en",
+        "es",
+        "fr",
+        "de",
+        "it",
+        "pt",
+        "pl",
+        "tr",
+        "ru",
+        "nl",
+        "cs",
+        "ar",
+        "zh-cn",
+        "hu",
+        "ko",
+        "ja"
+    ],
+    "temperature": 0.85,
+    "length_penalty": 1.0,
+    "repetition_penalty": 2.0,
+    "top_k": 50,
+    "top_p": 0.85,
+    "num_gpt_outputs": 1,
+    "gpt_cond_len": 12,
+    "gpt_cond_chunk_len": 4,
+    "max_ref_len": 10,
+    "sound_norm_refs": false,
+    "optimizer_wd_only_on_weights": true,
+    "weighted_loss_attrs": {},
+    "weighted_loss_multipliers": {},
+    "github_branch": "* main"
+}
