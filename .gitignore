@@ -3,3 +3,5 @@ __pycache__
 TTS
 checkpoints.pth
 model.pth
+vocab.json
+speakers_xtts.pth
