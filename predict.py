@@ -1,9 +1,10 @@
+# Prediction interface for Cog
 from cog import BasePredictor, Input, Path
 import os
-import torch
-import torchaudio
 from TTS.tts.configs.xtts_config import XttsConfig
 from TTS.tts.models.xtts import Xtts
+import torchaudio
+import torch
 
 class Predictor(BasePredictor):
     def setup(self) -> None:
@@ -12,7 +13,7 @@ class Predictor(BasePredictor):
         config = XttsConfig()
         config.load_json("./config.json")
         self.model = Xtts.init_from_config(config)
-        self.model.load_checkpoint(config, "./", eval=True)
+        self.model.load_checkpoint(config, "./checkpoints.pth", eval=True)
         self.model.cuda()
 
     def predict(
@@ -23,9 +24,49 @@ class Predictor(BasePredictor):
         ),
         speaker: Path = Input(description="Original speaker audio (wav, mp3, m4a, ogg, or flv). Duration should be at least 6 seconds."),
         language: str = Input(
-            description="Output language for the synthesized speech",
+            description="Output language for the synthesised speech",
             choices=["en", "es", "fr", "de", "it", "pt", "pl", "tr", "ru", "nl", "cs", "ar", "zh", "hu", "ko", "hi"],
             default="en"
+        ),
+        temperature: float = Input(
+            description="Temperature for the synthesised speech",
+            default=0.75
+        ),
+        length_penalty: float = Input(
+            description="Length penalty for the synthesised speech",
+            default=1.0
+        ),
+        repetition_penalty: float = Input(
+            description="Repetition penalty for the synthesised speech",
+            default=10.0
+        ),
+        top_k: int = Input(
+            description="Top k for the synthesised speech",
+            default=50
+        ),
+        top_p: float = Input(
+            description="Top p for the synthesised speech",
+            default=0.85
+        ),
+        do_sample: bool = Input(
+            description="Whether to sample from the synthesised speech",
+            default=True
+        ),
+        gpt_cond_len: int = Input(
+            description="GPT conditioning length for the synthesised speech",
+            default=30
+        ),
+        gpt_cond_chunk_len: int = Input(
+            description="GPT conditioning chunk length for the synthesised speech",
+            default=6
+        ),
+        max_ref_len: int = Input(
+            description="Maximum reference length for the synthesised speech",
+            default=30
+        ),
+        sound_norm_: bool = Input(
+            description="Whether to apply sound normalization to the synthesised speech",
+            default=False
         ),
         cleanup_voice: bool = Input(
             description="Whether to apply denoising to the speaker audio (microphone recordings)",
@@ -34,29 +75,44 @@ class Predictor(BasePredictor):
     ) -> Path:
         """Run a single prediction on the model"""
         speaker_wav = "/tmp/speaker.wav"
-        output_wav = "/tmp/output.wav"
-
         filter = "highpass=75,lowpass=8000,"
         trim_silence = "areverse,silenceremove=start_periods=1:start_silence=0:start_threshold=0.02,areverse,silenceremove=start_periods=1:start_silence=0:start_threshold=0.02"
-        
-        # Convert and clean up the speaker audio if necessary
+        # ffmpeg convert to wav and apply afftn denoise filter. y to overwrite and avoid caching
         if cleanup_voice:
             os.system(f"ffmpeg -i {speaker} -af {filter}{trim_silence} -y {speaker_wav}")
         else:
             os.system(f"ffmpeg -i {speaker} -y {speaker_wav}")
 
-        # Load the cleaned speaker audio
-        speaker_audio, sr = torchaudio.load(speaker_wav)
-        
-        # Synthesize speech
-        synthesis_output = self.model.synthesize(
-            text=text,
-            config=self.model.config,
-            speaker_wav=[speaker_wav],
-            language=language
+        # path = self.model.tts_to_file(
+        #     text=text, 
+        #     file_path = "/tmp/output.wav",
+        #     speaker_wav = speaker_wav,
+        #     language = language
+        # )
+        #
+
+        out = self.model.full_inference(
+            text,
+            ref_audio_path=speaker_wav,
+            language=language,
+            temperature=temperature,
+            length_penalty=length_penalty,
+            repetition_penalty=repetition_penalty,
+            top_k=top_k,
+            top_p=top_p,
+            do_sample=do_sample,
+            gpt_cond_len=gpt_cond_len,
+            gpt_cond_chunk_len=gpt_cond_chunk_len,
+            max_ref_len=max_ref_len,
+            sound_norm_refs=sound_norm_
         )
 
-        # Save the generated speech to a file
-        torchaudio.save(output_wav, torch.tensor(synthesis_output["wav"]).unsqueeze(0), synthesis_output["config"].output_sample_rate)
+        path = "/tmp/output.wav"
+        torchaudio.save(
+            path,
+            torch.tensor(out["wav"]).unsqueeze(0),
+            24000,
+            format="wav",
+        )
 
-        return Path(output_wav)
+        return Path(path)
