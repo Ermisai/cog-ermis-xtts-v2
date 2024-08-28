@@ -11,7 +11,7 @@ class Predictor(BasePredictor):
         config = XttsConfig()
         config.load_json("./config.json")
         self.model = Xtts.init_from_config(config)
-        self.model.load_checkpoint(config, "./checkpoints.pth", eval=True)
+        self.model.load_checkpoint(config, "./", eval=True)
         self.model.cuda()
 
     def predict(
