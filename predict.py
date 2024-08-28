@@ -30,23 +30,33 @@ class Predictor(BasePredictor):
         ),
         temperature: float = Input(
             description="Temperature for the synthesised speech",
-            default=0.75
+            default=0.75,
+            ge=0.01,
+            le=1.0
         ),
         length_penalty: float = Input(
             description="Length penalty for the synthesised speech",
-            default=1.0
+            default=1.0,
+            ge=-10.0,
+            le=10.0
         ),
         repetition_penalty: float = Input(
             description="Repetition penalty for the synthesised speech",
-            default=10.0
+            default=10.0,
+            ge=1,
+            le=10
         ),
         top_k: int = Input(
             description="Top k for the synthesised speech",
-            default=50
+            default=50,
+            ge=1,
+            le=100
         ),
         top_p: float = Input(
             description="Top p for the synthesised speech",
-            default=0.85
+            default=0.85,
+            ge=0.01,
+            le=1.0
         ),
         do_sample: bool = Input(
             description="Whether to sample from the synthesised speech",
@@ -54,15 +64,21 @@ class Predictor(BasePredictor):
         ),
         gpt_cond_len: int = Input(
             description="GPT conditioning length for the synthesised speech",
-            default=30
+            default=30,
+            ge=20,
+            le=30
         ),
         gpt_cond_chunk_len: int = Input(
             description="GPT conditioning chunk length for the synthesised speech",
-            default=6
+            default=6,
+            ge=5,
+            le=10
         ),
         max_ref_len: int = Input(
             description="Maximum reference length for the synthesised speech",
-            default=30
+            default=30,
+            ge=10,
+            le=60
         ),
         sound_norm_: bool = Input(
             description="Whether to apply sound normalization to the synthesised speech",
