@@ -1,13 +1,18 @@
 # Prediction interface for Cog
 from cog import BasePredictor, Input, Path
 import os
-from TTS.api import TTS
+from TTS.tts.configs.xtts_config import XttsConfig
+from TTS.tts.models.xtts import Xtts
 
 class Predictor(BasePredictor):
     def setup(self) -> None:
         """Load the model into memory to make running multiple predictions efficient"""
         os.environ["COQUI_TOS_AGREED"] = "1"
-        self.model = TTS("tts_models/multilingual/multi-dataset/xtts_v2", "./checkpoints.pth").to('cuda')
+        config = XttsConfig()
+        config.load_json("./config.json")
+        self.model = Xtts.init_from_config(config)
+        self.model.load_checkpoint(config, "./checkpoints.pth", eval=True)
+        self.model.cuda()
 
     def predict(
         self,
