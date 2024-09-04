@@ -5,3 +5,4 @@ checkpoints.pth
 model.pth
 vocab.json
 speakers_xtts.pth
+/models
