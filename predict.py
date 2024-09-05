@@ -13,7 +13,7 @@ class Predictor(BasePredictor):
         config = XttsConfig()
         config.load_json("./config.json")
         self.model = Xtts.init_from_config(config)
-        self.model.load_checkpoint(config, "./", vocab_path="./vocab.json", speaker_file_path="./speakers_xtts.pth", eval=True)
+        self.model.load_checkpoint(config, "./model.pth", vocab_path="./vocab.json", speaker_file_path="./speakers_xtts.pth", eval=True)
         self.model.cuda()
 
     def predict(
