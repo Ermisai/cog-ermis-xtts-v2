@@ -1,0 +1,6 @@
+--2024-09-10 18:01:56--  https://ermis-audios.s3.us-east-1.amazonaws.com/xtts-femvendas/model.pth?response-content-disposition=inline
+Resolving ermis-audios.s3.us-east-1.amazonaws.com (ermis-audios.s3.us-east-1.amazonaws.com)... 3.5.23.158, 54.231.138.106, 52.216.53.242, ...
+Connecting to ermis-audios.s3.us-east-1.amazonaws.com (ermis-audios.s3.us-east-1.amazonaws.com)|3.5.23.158|:443... connected.
+HTTP request sent, awaiting response... 400 Bad Request
+2024-09-10 18:01:56 ERROR 400: Bad Request.
+
